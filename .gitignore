@@ -1,0 +1,45 @@
+# Dependencies (Nooit commiten, dit bouwt npm zelf op)
+node_modules/
+jspm_packages/
+web_modules/
+
+# Build outputs (De gecompileerde JavaScript-code)
+dist/
+build/
+out/
+
+# TypeScript specifieke bestanden (Gegenereerd door tsc bij incremental builds)
+*.tsbuildinfo
+
+# Omgevingsvariabelen en geheimen (Fastify-wachtwoorden, API sleutels)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs (Handig als Fastify of npm crasht)
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Test resultaten en coverage (Mocht je later Vitest of Jest toevoegen)
+coverage/
+.nyc_output/
+
+# IDE's en Editor specifieke mappen
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# OS gegenereerde bestanden
+.DS_Store
+Thumbs.db
