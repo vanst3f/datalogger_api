@@ -12,7 +12,7 @@ export const readingSchema = {
     minItems: 1,
     items: {
       type: "object",
-      required: ["timestamp", "temperature_c"],
+      required: ["timestamp", "temperatureC"],
       additionalProperties: false,
       properties: {
         timestamp: {
@@ -20,7 +20,7 @@ export const readingSchema = {
           pattern:
             "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$",
         },
-        temperature_c: { type: "integer" },
+        temperatureC: { type: "integer" },
       },
     },
   },

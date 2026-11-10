@@ -1,7 +1,7 @@
 type WithId<T> = T & { id: number };
 
 export class InMemoryDatabase<T> {
-  private storage: Map<number, WithId<T>> = new Map();
+  protected storage: Map<number, WithId<T>> = new Map();
   private currentId = 1;
 
   save(item: T): T {

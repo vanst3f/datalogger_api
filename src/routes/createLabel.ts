@@ -21,7 +21,7 @@ export async function createLabel(fastify: FastifyInstance) {
 
       return reply
         .code(201)
-        .send({ message: "Label created", data: createdLabel });
+        .send({ success: true, message: "Label created", data: createdLabel });
     },
   );
 }
