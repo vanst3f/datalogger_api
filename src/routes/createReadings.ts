@@ -11,17 +11,13 @@ export async function createReadings(fastify: FastifyInstance) {
     async (request, reply) => {
       const labelId = request.params.id;
       if (!labelId) {
-        return reply
-          .code(400)
-          .send({ success: false, error: "Label ID is required" });
+        return reply.code(400).send({ error: "Label ID is required" });
       }
       const incomingArray = request.body;
 
       const label = labelsDb.getById(labelId);
       if (!label) {
-        return reply
-          .code(404)
-          .send({ success: false, error: "Label not found" });
+        return reply.code(404).send({ error: "Label not found" });
       }
 
       const readings = incomingArray.map((reading) => ({
@@ -32,7 +28,6 @@ export async function createReadings(fastify: FastifyInstance) {
       const createdReadings = readingsDb.saveMany(readings);
 
       return reply.code(201).send({
-        success: true,
         message: "Readings created",
         data: createdReadings,
       });
