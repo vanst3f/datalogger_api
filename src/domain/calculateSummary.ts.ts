@@ -1,6 +1,6 @@
 import type { Label, Reading, Summary } from "./types.js";
 
-import { calculateExcursions } from "./calculate-excursions.js";
+import { calculateExcursions } from "./calculateExcursions.js";
 
 export function calculateSummary(readings: Reading[], label: Label): Summary {
   const minTemp = Math.min(...readings.map((reading) => reading.temperatureC));

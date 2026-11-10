@@ -1,12 +1,10 @@
 import { type FastifyInstance } from "fastify";
-import { InMemoryDatabase } from "../persistence/inmemory-db.js";
+import { labelsDb } from "../db.js";
 
 import type { Label } from "../domain/types.js";
-import { labelSchema } from "../schemas/label-schema.js";
+import { labelSchema } from "../schemas/labelSchema.js";
 
 export async function createLabel(fastify: FastifyInstance) {
-  const labelDb = new InMemoryDatabase<Label>();
-
   fastify.post<{ Body: Label }>(
     "/labels",
     { schema: labelSchema },
@@ -19,8 +17,11 @@ export async function createLabel(fastify: FastifyInstance) {
         toleranceMinutes: toleranceMinutes,
       };
 
-      labelDb.save(label);
-      return reply.code(201).send(label);
+      const createdLabel = labelsDb.save(label);
+
+      return reply
+        .code(201)
+        .send({ message: "Label created", data: createdLabel });
     },
   );
 }

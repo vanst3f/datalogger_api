@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import type { Label, Reading } from "./types.js";
-import { calculateSummary } from "./calculate-summary.js";
+import { calculateSummary } from "./calculateSummary.ts.js";
 
 describe("calculateSummary", () => {
   const mockLabel: Label = { minC: 2, maxC: 8, toleranceMinutes: 45 };

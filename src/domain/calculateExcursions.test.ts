@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import type { Label, Reading, Excursion } from "./types.js";
 
-import { calculateExcursions } from "./calculate-excursions.js";
+import { calculateExcursions } from "./calculateExcursions.js";
 
 describe("calculateExcursions", () => {
   const mockLabel: Label = { minC: 2, maxC: 8, toleranceMinutes: 45 };
