@@ -17,6 +17,11 @@
 
     **_Het nadeel van deze optie:_** stel de metingen stoppen terwijl de temperatuur nog buiten het bereik is, dan is er dus geen "punt van herstel" en is de totale gemeten tijd 0.
 
+## API routes
+
+- **Waarom vindt hij het label niet met het meegegeven id in POST /labels/:id/readings?**
+  - Ik liep tegen het probleem aan dat deze route teruggaf: "Label not found" wanneer ik hem aanriep in Postman. Ik kwam erachter dat hij id in de vorm van een string zocht in de mock database, maar als het :id in /labels/:id/readings is natuurlijk een number. Door de methodes in de mock database allemaal een getal te laten verwachten en de API route ook werkte het aanroepen wel naar behoren en worden de readings opgeslagen met een foreign labelId.
+
 ## Overig
 
     - Is een excursie binnen- of gelijk aan de minimum en maximum temperatuur, of alleen binnen de minimum en maximum temperatuur (dus kleiner dan maxC en groter dan min C)?
@@ -25,6 +30,10 @@
 
     - Wanneer stel je de piektemperatuur vast?
 
-    - Hoe zit het met de piektemperatuur bij waardes onder de 0?
+    - Hoe zit het met de piektemperatuur vastleggen bij waardes onder de 0?
 
     - Maak ik eerst een excursie object aan voor het loopen en vul ik hem dan, of maak ik hem pas aan wanneer er een excursie start?
+
+    - Maak ik voor elke "tabel" een eigen instantie van InMemoryDatabase of komen ze allemaal in dezelfde?
+
+    - Ik vergat de routes eerst te registreren met fastify.register(functienaam) in app.ts, waardoor het testen niet ging.
