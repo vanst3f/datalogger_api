@@ -22,6 +22,9 @@
 - **Waarom vindt hij het label niet met het meegegeven id in POST /labels/:id/readings?**
   - Ik liep tegen het probleem aan dat deze route teruggaf: "Label not found" wanneer ik hem aanriep in Postman. Ik kwam erachter dat hij id in de vorm van een string zocht in de mock database, maar als het :id in /labels/:id/readings is natuurlijk een number. Door de methodes in de mock database allemaal een getal te laten verwachten en de API route ook werkte het aanroepen wel naar behoren en worden de readings opgeslagen met een foreign labelId.
 
+- **Waarom krijg ik het veld temperatureC niet terug van de API route GET /labels/:id/excursions?**
+  - Dit kwam doordat ik in het schema de naam temperature_c had gemaakt en dit dus anders is dan Typescript verwacht. Hierdoor werd de calculateExcursions berekening met temperatureC: null uitgevoerd.
+
 ## Overig
 
     - Is een excursie binnen- of gelijk aan de minimum en maximum temperatuur, of alleen binnen de minimum en maximum temperatuur (dus kleiner dan maxC en groter dan min C)?
