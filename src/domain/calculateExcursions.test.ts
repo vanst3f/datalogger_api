@@ -118,7 +118,6 @@ describe("calculateExcursions", () => {
       mockLabel,
     );
 
-    console.log(excursions);
     expect(excursions[0]?.durationMinutes).toBe(15);
   });
 });

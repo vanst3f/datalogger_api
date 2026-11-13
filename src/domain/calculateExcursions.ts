@@ -11,15 +11,11 @@ export function calculateExcursions(
     (a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp),
   );
 
-  for (let i = 0; i < sortedReadings.length; i++) {
-    const reading = sortedReadings[i];
-    if (!reading) continue;
+  for (const reading of sortedReadings) {
+    const isOutOfRange =
+      reading.temperatureC < label.minC || reading.temperatureC > label.maxC;
 
-    if (
-      (reading.temperatureC < label.minC ||
-        reading.temperatureC > label.maxC) &&
-      currentExcursion === null
-    ) {
+    if (isOutOfRange && !currentExcursion) {
       currentExcursion = {
         start: reading.timestamp,
         end: "",
@@ -28,22 +24,14 @@ export function calculateExcursions(
       };
     }
 
-    if (
-      (reading.temperatureC < label.minC ||
-        reading.temperatureC > label.maxC) &&
-      currentExcursion !== null
-    ) {
+    if (isOutOfRange && currentExcursion) {
       currentExcursion.peakC =
         Math.abs(reading.temperatureC) > Math.abs(currentExcursion.peakC)
           ? reading.temperatureC
           : currentExcursion.peakC;
     }
 
-    if (
-      reading.temperatureC >= label.minC &&
-      reading.temperatureC <= label.maxC &&
-      currentExcursion !== null
-    ) {
+    if (!isOutOfRange && currentExcursion) {
       currentExcursion.end = reading.timestamp;
       currentExcursion.durationMinutes =
         Math.abs(
@@ -58,23 +46,22 @@ export function calculateExcursions(
       result.push(currentExcursion);
       currentExcursion = null;
     }
+  }
 
-    if (
-      (reading.temperatureC < label.minC ||
-        reading.temperatureC > label.maxC) &&
-      currentExcursion !== null &&
-      i === sortedReadings.length - 1
-    ) {
-      currentExcursion.end = reading.timestamp;
-      currentExcursion.durationMinutes =
-        Math.abs(
-          Date.parse(currentExcursion.start) - Date.parse(currentExcursion.end),
-        ) /
-        (1000 * 60);
-
-      result.push(currentExcursion);
-      currentExcursion = null;
+  if (currentExcursion) {
+    const endTime = sortedReadings[sortedReadings.length - 1]?.timestamp;
+    if (endTime) {
+      currentExcursion.end = endTime;
     }
+
+    currentExcursion.durationMinutes =
+      Math.abs(
+        Date.parse(currentExcursion.start) - Date.parse(currentExcursion.end),
+      ) /
+      (1000 * 60);
+
+    result.push(currentExcursion);
+    currentExcursion = null;
   }
 
   return result;
